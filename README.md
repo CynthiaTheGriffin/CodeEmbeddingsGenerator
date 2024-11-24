@@ -53,7 +53,7 @@ Step 3: Perform topological data analysis.
 
 This is where the rest of the magic happens! Perform exploratory data analysis, compute topological features, analyze persistent homology, and more!
 
-Explaining this step is far beyond the scope of this repository, but we have found some helpful links for those who want to have a go:
+Explaining this step is far beyond the scope of this repository, but we have found some helpful links for any newcomers who want to have a go:
 - Tutorial by Katherine Benjamin: [https://www.youtube.com/watch?v=8qXOdF1_nm8](https://www.youtube.com/watch?v=8qXOdF1_nm8)
 - Tutorial by Elizabeth Munch: [https://www.youtube.com/watch?v=SbsvM4Gcbl0](https://www.youtube.com/watch?v=SbsvM4Gcbl0)
 
