@@ -23,7 +23,7 @@ repo = "ant-ivy" # Repository name
 sub_dir = "ivy" # Target subdirectory from within repository
 extensions = ["java"] # Specifies to take only .java files
 
-token = "" # Fine-grained GitHub access token
+token = "" # Fine-grained GitHub access token (Guide: https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens)
 file_getter = GitHubFileGetter(token)
 java_files = file_getter.get_github_files(user, repo, sub_dir, extensions)
 
