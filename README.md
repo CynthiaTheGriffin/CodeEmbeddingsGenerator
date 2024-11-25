@@ -126,3 +126,7 @@ Arguments:
 ## References
 
 [1] Batista, N., Sousa, G., Brandão, M., Silva, A., & Moro, M. (2018). Tie strength metrics to rank pairs of developers from github. Journal of Information and Data Management, 9(1), 69. https://doi.org/10.5753/jidm.2018.1637 
+
+---
+
+```Disclaimer: All writing and code in this repository was made entirely by Cynthia Xiong.```
