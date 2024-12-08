@@ -20,7 +20,7 @@ from GitHubFileGetter import GitHubFileGetter
 # Get the download URLs of all Java files in the ivy subdirectory of the ant-ivy GitHub repository
 user = "apache" # Owner of target repository
 repo = "ant-ivy" # Repository name
-sub_dir = "ivy" # Target subdirectory from within repository
+sub_dir = "src/java/org/apache/ivy" # Target subdirectory from within repository
 extensions = ["java"] # Specifies to take only .java files
 
 token = "" # Fine-grained GitHub access token (Guide: https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens)
