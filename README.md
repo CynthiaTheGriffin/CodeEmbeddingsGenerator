@@ -35,10 +35,11 @@ with open(download_urls.json) as f:
 Step 2: Generate code embeddings for all files in the repository.
 ```
 import json
+from unixcoder import UniXcoder
 from CodeEmbeddingsGenerator import generate_code_embeddings, embed_all_files
 
 java_files = json.load(open("download_urls.json"))
-sub_dir = "ivy"
+sub_dir = "src/java/org/apache/ivy"
 
 # Generate code embeddings for a single Java file
 url = java_files['0'] # The first download URL is the Ivy.java download URL
