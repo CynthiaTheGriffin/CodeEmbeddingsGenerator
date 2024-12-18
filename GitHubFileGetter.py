@@ -40,7 +40,8 @@ class GitHubFileGetter:
             extension: If not None, gets all files that have one of the specified file extensions.
         '''
         g = Github(auth=self.auth)
-        self.__repo = g.get_repo(full_name_or_id = user + '/' + repo)
+        # self.__repo = g.get_repo(full_name_or_id = user + '/' + repo)
+        self.__repo = g.get_repo(full_name_or_id = 'apache/ant-ivy')
         self.__extensions = extensions
 
         urls = []

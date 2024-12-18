@@ -2,59 +2,41 @@
 
 ## Overview
 
-Topological data analysis (TDA) is an emerging approach for analyzing complex datasets by extracting shape-based features and structural insights. While TDA has been applied to various domains, its use in studying code is a relatively new and developing area. Still, it shows promise for providing new insights into code structure, quality, and evolution. Although code repositories (i.e., collections of code) contain vast amounts of complex data that can be challenging to analyze using traditional methods, TDA offers a unique perspective by focusing on the topological and geometric properties of data, which can reveal hidden structures and patterns.
+This repository includes code that retrieves Java code from GitHub repositories, then data engineers the code into numerical representations of the code, or code embeddings. GitHubFileGetter.py obtains the download URLs of files in a specified repository (or subdirectory in the repository), and CodeEmbeddingsGenerator.py generates a new directory with the code embedding representations. RunAll.py simplifies the use of each file into two Python functions, which can be run with a single line of code. 
 
-One of the foundational elements of TDA is the concept of persistence diagrams, which shows the lifetimes, or the "persistence," of topological features in a dataset as certain parameters change over time. As an example, imagine you're looking at a mountain range from far away. As you get closer, you start seeing different _features_: First, you might see one big mountain. Then as you get closer, you notice there are actually several peaks. Even closer, you might spot valleys and caves. And when you move past them and start moving farther away, the valleys and caves disappear, then the peaks, and finally the mountain. Here, the mountain "persists" the longest, and the valleys and caves the shortest. In the context of topology, data points, when plotted on a point cloud, form shapes that have features such as the number of clusters that form a "shape," as well as the number holes in those shapes. These features are referred to as topological features of the dataset, and are used to determine which datasets are similar or different.
+The result should create a new data folder containing the code embeddings. This new folder would be structured similarly to the original GitHub repository, with embeddings stored in folders named after the Java files from which they're derived.
 
-Persistence diagrams summarize the persistences of topological features of a dataset, and they provide a representation of the data's shape. In the context of source code, persistence diagrams can be utilized to analyze the relationships between different components of the codebase, such as classes, methods, and their interactions. This can help in identifying modular structures (i.e., the independent parts of code that define a program's functions) and potential areas for refactoring (i.e., improving the internal code without changing the external functionalities) (Batista et al., 2018).
 
-This repository includes code that can facilitate TDA on Java code from GitHub repositories by data engineering the code into numerical representations of the code, or code embeddings. GitHubFileGetter.py obtains the download URLs of files in a specified repository (or subdirectory in the repository), and CodeEmbeddingsGenerator.py generates a new directory with the code embedding representations. This new directory would be structured similarly to the original repository to make separating embeddings by types and directory locations easier during analyses.
+## Setup
 
-Suppose we want to analyze some Java files in the official Apache Ivy codebase.
+### Install Packages
 
-Step 1: Obtain the download URLs of the Java files in the repository.
+Go into your terminal and run the following commands:
+
 ```
-import json
-from GitHubFileGetter import GitHubFileGetter
-
-# Get the download URLs of all Java files in the ivy subdirectory of the ant-ivy GitHub repository
-user = "apache" # Owner of target repository
-repo = "ant-ivy" # Repository name
-sub_dir = "src/java/org/apache/ivy" # Target subdirectory from within repository
-extensions = ["java"] # Specifies to take only .java files
-
-token = "" # Fine-grained GitHub access token (Guide: https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens)
-file_getter = GitHubFileGetter(token)
-java_files = file_getter.get_github_files(user, repo, sub_dir, extensions)
-
-# Save URLs in a JSON file
-with open(download_urls.json) as f:
-  json.dump(java_files, f)
+pip install torch
+```
+```
+pip install tree-sitter-java
+```
+```
+pip install tree-sitter
 ```
 
-Step 2: Generate code embeddings for all files in the repository.
-```
-import json
-from unixcoder import UniXcoder
-from CodeEmbeddingsGenerator import generate_code_embeddings, embed_all_files
+### Get UniXcoder
 
-java_files = json.load(open("download_urls.json"))
-sub_dir = "src/java/org/apache/ivy"
+Download unixcoder.py from its [official site](https://github.com/microsoft/CodeBERT/tree/master/UniXcoder), then move it into the same directory as CodeEmbeddingsGenerator.py.
 
-# Generate code embeddings for a single Java file
-url = java_files['0'] # The first download URL is the Ivy.java download URL
-model = UniXcoder("microsoft/unixcoder-base")
-generate_code_embeddings(url, sub_dir, model)
 
-# Generate code embeddings for all the Java files in the ivy subdirectory
-embed_all_files(java_files, sub_dir)
-```
+## Instructions
+
+Step 1: Complete the setup described above.
+
+Step 2: Generate code embeddings at the GitHub repository of your choice. Please refer to [RunAll.ipynb](RunAll.ipynb) to run the code.
 
 Step 3: Perform topological data analysis. 
 
-This is where the rest of the magic happens! Perform exploratory data analysis, compute topological features, analyze persistent homology, and more!
-
-Explaining this step is far beyond the scope of this repository, but we have found some helpful links for any newcomers who want to have a go:
+This is where the rest of the magic happens! However, explaining this step is far beyond the scope of this repository, but we have found some helpful links for any newcomers who want to have a go:
 - Tutorial by Katherine Benjamin: [https://www.youtube.com/watch?v=8qXOdF1_nm8](https://www.youtube.com/watch?v=8qXOdF1_nm8)
 - Tutorial by Elizabeth Munch: [https://www.youtube.com/watch?v=SbsvM4Gcbl0](https://www.youtube.com/watch?v=SbsvM4Gcbl0)
 
