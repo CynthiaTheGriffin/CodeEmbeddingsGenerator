@@ -1,10 +1,12 @@
 # Topological Data Analysis on Source Code Embeddings
 
-## Overview
+## Introduction
 
 This repository includes code that retrieves Java code from GitHub repositories, then data engineers the code into numerical representations of the code, or code embeddings. GitHubFileGetter.py obtains the download URLs of files in a specified repository (or subdirectory in the repository), and CodeEmbeddingsGenerator.py generates a new directory with the code embedding representations. RunAll.py simplifies the use of each file into two Python functions, which can be run with a single line of code. 
 
-The result should create a new data folder containing the code embeddings. This new folder would be structured similarly to the original GitHub repository, with embeddings stored in folders named after the Java files from which they're derived.
+The result should create a new "data" folder containing the code embeddings. This new folder would be structured similarly to the original GitHub repository, with embeddings stored in folders named after the Java files from which they're derived.
+
+This is intended to facilitate topological data analysis by automating the process of data engineering code embeddings of a selected GitHub repository through a seemless process.
 
 
 ## Setup
@@ -28,49 +30,43 @@ pip install tree-sitter
 Download unixcoder.py from its [official site](https://github.com/microsoft/CodeBERT/tree/master/UniXcoder), then move it into the same directory as CodeEmbeddingsGenerator.py.
 
 
+### Get GitHub Access Token
+
+The provided code requires a GitHub access token to function. To obtain one, create a GitHub account, then follow the [official guide](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-fine-grained-personal-access-token) to generate a fine-grained personal access token.
+
+
 ## Instructions
 
-Step 1: Complete the setup described above.
+1. Complete the setup described above, and have your access token ready.
 
-Step 2: Generate code embeddings at the GitHub repository of your choice. Please refer to [RunAll.ipynb](RunAll.ipynb) to run the code.
+2. Generate code embeddings at the GitHub repository of your choice. Please refer to [RunAll.ipynb](RunAll.ipynb) to run the code. Also refer to our [sample dataset](https://github.com/CynthiaTheGriffin/CodeEmbeddingsGenerator/tree/main/data/src/java/org/apache/ivy/tools/analyser) to ensure that the results are correct.
 
-Step 3: Perform topological data analysis. 
-
-This is where the rest of the magic happens! However, explaining this step is far beyond the scope of this repository, but we have found some helpful links for any newcomers who want to have a go:
+3. Perform topological data analysis using the newly generated code embeddings in the data folder. This is where the rest of the magic happens! However, explaining this step is far beyond the scope of this repository, but we have found some helpful links for any newcomers who want to have a go:
 - Tutorial by Katherine Benjamin: [https://www.youtube.com/watch?v=8qXOdF1_nm8](https://www.youtube.com/watch?v=8qXOdF1_nm8)
 - Tutorial by Elizabeth Munch: [https://www.youtube.com/watch?v=SbsvM4Gcbl0](https://www.youtube.com/watch?v=SbsvM4Gcbl0)
 
 
-## Data Engineering
-
-CodeEmbeddingsGenerator.py reads Java code files, then uses the code to generate code embeddings through a systematic method:
-
-1. Extract code fragments using the [Tree-sitter](https://tree-sitter.github.io/tree-sitter/) parser at three levels: classes, methods, and tokens. The classes are the largest code fragments, which contains the smaller method code fragments, which contains the even smaller token code fragments.
-2. Input the code fragments into the [UniXcoder](https://github.com/microsoft/CodeBERT/tree/master/UniXcoder) neural network model for AI code generation, which outputs code fragment embedding representations. Each embedding includes 768 values.
-3. Save each embedding as a JSON file in a data folder, along with some other relevant data.
-    - Includes the class/method name if it is a class/method embedding, or the token itself if it is a token embedding.
-    - Includes the string indices for parsing out the code fragment being represented.
-
-Here is an example data engineering pipeline, where the source code is taken from the official [Apache Ivy](https://github.com/apache/ant-ivy/tree/master) GitHub repository:
-![Diagram of data engineering pipeline](img/data_engineering_pipeline.png)
-
-Furthermore, the directory in the data folder is structured similarly to the structure of the source repository. JSON files that were created from a certain Java file would be stored in a folder named after that same Java file, which is stored in a location that mimics that of its source. JSON files are also named after the classes or methods they are in, including those that are nested. The idea is to simplify the process of separating embeddings by granularity and directory locations for ease of analysis.
-
-Here are some example JSON filenames that were generated from [Ivy.java](https://github.com/apache/ant-ivy/blob/master/src/java/org/apache/ivy/Ivy.java) (from Apache Ivy):
-
-| Filename | Meaning |
-|-|-|
-| c.Ivy.json | Class embedding of Ivy class |
-| c.Ivy_m.AssertBound.json | Method embedding of AssertBound method found in Ivy class |
-| c.Ivy_m.AssertBound_token.json | Token embedding of a token found in AssertBound method and Ivy class |
-| c.Ivy_m.AssertBound_token(0).json | Token embedding of a different token found in AssertBound method and Ivy class |
-| c.Ivy_m.AssertBound_token(1).json | Token embedding of yet another token found in AssertBound method and Ivy class |
-| c.Ivy_m.bind.json | Method embedding of bind method found in Ivy class |
-| c.Ivy_m.bind_m.transferProgress.json | Method embedding of transferProgress method found in bind method and Ivy class |
-| c.Ivy_m.deliver.json | Method embedding of deliver method found in Ivy class |
-| c.Ivy_m.deliver(0).json | Method embedding of a different deliver method found in Ivy class |
-
 ## Documentation
+
+### RunAll.py
+
+```get_download_urls(token:str, user:str, repo:str, sub_dir:str)```
+
+Gets the download URLs of all Java files in the specified GitHub repository. Performs functions in GitHubFileGetter.py, and creates download_urls.json.
+
+Arguments:
+- user: Owner of target repository
+- repo: Repository name
+- sub_dir: Target subdirectory from within repository
+- token: GitHub access token
+
+```generate_embeddings(sub_dir:str)```
+
+Generate code embeddings for all Java files given by the download URLs. Performs functions in CodeEmbeddingsGenerator.py, and creates a new "data" folder containing the code embeddings.
+
+Argument:
+- sub_dir: Target subdirectory from within the repository
+
 
 ### GitHubFileGetter.py
 
@@ -105,10 +101,6 @@ Arguments:
 - files: Download URLs of the Java source code, with uniquely identifying IDs as the keys.
 - sub_dir: The specific subdirectory to focus on. If it is an empty string, have no subdirectory to focus on, and organize everything from the master branch.
 
-
-## References
-
-[1] Batista, N., Sousa, G., Brandão, M., Silva, A., & Moro, M. (2018). Tie strength metrics to rank pairs of developers from github. Journal of Information and Data Management, 9(1), 69. https://doi.org/10.5753/jidm.2018.1637 
 
 ---
 

@@ -6,7 +6,7 @@ from CodeEmbeddingsGenerator import embed_all_files
 
 def get_download_urls(token:str, user:str, repo:str, sub_dir:str):
     '''
-    Get the download URLs of all Java files in the specified GitHub repository.
+    Gets the download URLs of all Java files in the specified GitHub repository.
 
     Args:
         user: Owner of target repository
