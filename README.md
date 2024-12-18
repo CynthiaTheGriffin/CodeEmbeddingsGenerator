@@ -46,6 +46,7 @@ The provided code requires a GitHub access token to function. To obtain one, cre
 
 3. Perform topological data analysis using the newly generated code embeddings in the data folder. This is where the rest of the magic happens! However, explaining this step is far beyond the scope of this repository, but we have found some helpful links for any newcomers who want to have a go:
 
+    - Our included [writeup](writeup.pdf)
     - Tutorial by Katherine Benjamin: [https://www.youtube.com/watch?v=8qXOdF1_nm8](https://www.youtube.com/watch?v=8qXOdF1_nm8)
     - Tutorial by Elizabeth Munch: [https://www.youtube.com/watch?v=SbsvM4Gcbl0](https://www.youtube.com/watch?v=SbsvM4Gcbl0)
 
