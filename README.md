@@ -40,12 +40,12 @@ The provided code requires a GitHub access token to function. To obtain one, cre
 1. Complete the setup described above, and have your access token ready.
 
 2. Generate code embeddings at the GitHub repository of your choice. 
-- Please refer to the [RunAll.ipynb](RunAll.ipynb) notebook to run the code. 
-- We have included our [downloads.json](https://github.com/CynthiaTheGriffin/CodeEmbeddingsGenerator/blob/main/download_urls.json) and [sample dataset](https://github.com/CynthiaTheGriffin/CodeEmbeddingsGenerator/tree/main/data/src/java/org/apache/ivy/tools/analyser), which should both match with the result of running the code in the notebook.
+  - Please refer to the [RunAll.ipynb](RunAll.ipynb) notebook to run the code. 
+  - We have included our [downloads.json](https://github.com/CynthiaTheGriffin/CodeEmbeddingsGenerator/blob/main/download_urls.json) and [sample dataset](https://github.com/CynthiaTheGriffin/CodeEmbeddingsGenerator/tree/main/data/src/java/org/apache/ivy/tools/analyser), which should both match with the result of running the code in the notebook.
 
 3. Perform topological data analysis using the newly generated code embeddings in the data folder. This is where the rest of the magic happens! However, explaining this step is far beyond the scope of this repository, but we have found some helpful links for any newcomers who want to have a go:
-- Tutorial by Katherine Benjamin: [https://www.youtube.com/watch?v=8qXOdF1_nm8](https://www.youtube.com/watch?v=8qXOdF1_nm8)
-- Tutorial by Elizabeth Munch: [https://www.youtube.com/watch?v=SbsvM4Gcbl0](https://www.youtube.com/watch?v=SbsvM4Gcbl0)
+  - Tutorial by Katherine Benjamin: [https://www.youtube.com/watch?v=8qXOdF1_nm8](https://www.youtube.com/watch?v=8qXOdF1_nm8)
+  - Tutorial by Elizabeth Munch: [https://www.youtube.com/watch?v=SbsvM4Gcbl0](https://www.youtube.com/watch?v=SbsvM4Gcbl0)
 
 
 ## Documentation
